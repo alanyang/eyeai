@@ -39,7 +39,7 @@ export async function action({ request }: ActionArgs) {
   const resp = await fetch(ApiText2Image, {
     method: 'post',
     headers: {
-      token: process.env.TOKEN,
+      token: 'aac1fafc4b5cc57b1542dff06ab39729',
       'Content-Type': 'application/json',
       "Accept": "application/json",
     },
