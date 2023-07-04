@@ -85,7 +85,8 @@ export default function () {
 
   return (
     <main className="flex flex-col justify-center">
-      <h3 className="text-3xl">Definertech AI</h3>
+      <h3 className="text-3xl">AI Compare</h3>
+      <h5 className="text-xl font-thin">Current baai stable diffution algorithm</h5>
       <fetcher.Form method="post" className="flex flex-col mt-8">
         <div>
           <input type="text" placeholder="prompt" name="prompt" className="border-blue-500 border m-1 p-2 rounded active:border-blue-200 hover:border-blue-300 focus:border-blue-200 focus:outline-none w-1/2" />
