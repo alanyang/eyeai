@@ -25,7 +25,7 @@ export default function App () {
         <Links />
       </head>
       <body className="bg-gray-100 text-slate-900">
-        <div className="m-5 flex flex-col gap-1">
+        <div className="mx-5 mt-2 flex flex-col gap-1">
           <img src={logo} width={"120"} height={"120"} className="self-start " />
           <div className="mt-3">
             <label className="font-bold text-xl">AI Photo Generate</label>

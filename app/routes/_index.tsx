@@ -124,9 +124,9 @@ export default function () {
   }, [fetcher])
 
   return (
-    <main className="flex flex-col font-medium p-5 m-5 rounded-lg bg-white">
-      <section className="flex justify-start gap-5">
-        <fetcher.Form method="post" className="flex flex-col items-start w-1/2 gap-5">
+    <main className="flex flex-col font-medium p-5">
+      <section className="flex justify-start gap-3 bg-white rounded-lg">
+        <fetcher.Form method="post" className="flex flex-col items-start w-1/2 gap-3 p-5">
           <div className="w-full">
             <label htmlFor="prompt">Prompt(Describe what you'd like generate)</label>
             <textarea type="text" id="prompt" placeholder="prompt" rows={12} name="prompt" className="border-blue-500 border m-1 p-1 rounded active:border-blue-200 hover:border-blue-300 focus:border-blue-200 focus:outline-none w-full" />
@@ -167,13 +167,10 @@ export default function () {
           <input type="hidden" name="style" value={style} />
 
           <button onClick={event => fetcher.submit({ _action: 'imagine' })} className="bg-blue-500  m-1 p-2 rounded hover:bg-blue-300 text-white px-3 font-bold w-full">Generate</button>
-          {['submitting', 'loading'].includes(fetcher.state) ?
-            <span className="animate-ping absolute inline-flex h-3/4 w-3/4 rounded-full bg-blue-400 opacity-80"></span>
-            : <></>}
         </fetcher.Form>
 
 
-        <section className="flex flex-col justify-center items-center gap-3 w-1/2 bg-gray-200 rounded-lg">
+        <section className="flex flex-col justify-center items-center gap-3 w-1/2 bg-gray-200">
           {
 
             images.length && images.map((it, i) => <Image width={"400"} height={"400"} key={i} src={it} />) || <span></span>
@@ -181,9 +178,13 @@ export default function () {
           }
 
           {
-            ['submitting', 'loading'].includes(fetcher.state) && <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="animate-spin w-10 h-10 text-slate-500">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
-            </svg>
+            ['submitting', 'loading'].includes(fetcher.state) &&
+            <div className="flex flex-col justify-center items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="animate-spin w-10 h-10 text-slate-500">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+              </svg>
+              <div>Generating...</div>
+            </div>
 
           }
         </section>
