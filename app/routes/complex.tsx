@@ -139,7 +139,7 @@ export default function () {
           </div>
           <div className="w-full">
             <label htmlFor="style">Negtive prompt</label>
-            <input type="text" placeholder="(否定提示词)" name="negative_prompts" className="border-blue-500 border m-1 p-2 rounded active:border-blue-200 hover:border-blue-300 focus:border-blue-200 focus:outline-none w-full" />
+            <input type="text" placeholder="(否定提示词)" name="negative_prompts" className="border-blue-500 border m-1 p-1 rounded active:border-blue-200 hover:border-blue-300 focus:border-blue-200 focus:outline-none w-full" />
           </div>
           <div className="w-full">
             <label htmlFor="style">Style</label>
@@ -155,7 +155,7 @@ export default function () {
           
           <div className="w-full">
             <label htmlFor="gs">Guidance scale</label>
-            <input type="text" id="gs" defaultValue={7} placeholder="(制导比例，取值[1-20])" name="guidance_scale" className="border-blue-500 border m-1 p-2 rounded active:border-blue-200 hover:border-blue-300 focus:border-blue-200 focus:outline-none w-full" />
+            <input type="text" id="gs" defaultValue={7} placeholder="(制导比例，取值[1-20])" name="guidance_scale" className="border-blue-500 border m-1 p-1 rounded active:border-blue-200 hover:border-blue-300 focus:border-blue-200 focus:outline-none w-full" />
           </div>
           
           <div className="w-full">
