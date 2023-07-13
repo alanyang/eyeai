@@ -133,11 +133,11 @@ export default function () {
         <fetcher.Form method="post" className="flex flex-col items-start w-1/2 gap-3 p-5">
           <div className="w-full">
             <label htmlFor="prompt">Prompt(Describe what you'd like generate)</label>
-            <textarea type="text" id="prompt" placeholder="(用户的输入从这里开始)" rows={12} name="prompt" className="border-blue-500 border m-1 p-1 rounded active:border-blue-200 hover:border-blue-300 focus:border-blue-200 focus:outline-none w-full" />
+            <textarea type="text" id="prompt" placeholder="" rows={12} name="prompt" className="border-blue-500 border m-1 p-1 rounded active:border-blue-200 hover:border-blue-300 focus:border-blue-200 focus:outline-none w-full" />
           </div>
           <div className="w-full">
             <label htmlFor="style">Negtive prompt</label>
-            <input type="text" placeholder="(否定提示词)" name="negative_prompts" className="border-blue-500 border m-1 p-2 rounded active:border-blue-200 hover:border-blue-300 focus:border-blue-200 focus:outline-none w-full" />
+            <input type="text" placeholder="" name="negative_prompts" className="border-blue-500 border m-1 p-2 rounded active:border-blue-200 hover:border-blue-300 focus:border-blue-200 focus:outline-none w-full" />
           </div>
           <div className="w-full hidden">
             <label htmlFor="style">Style</label>
