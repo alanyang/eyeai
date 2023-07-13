@@ -38,14 +38,15 @@ const fetchFromBaai = async (data) => {
     body: JSON.stringify({
       "prompt": data.prompt,
       "guidance_scale": data.guidance_scale,
-      "height": 512,
+      
       "negative_prompts": data.negative_prompts,
       "sampler": data.sampler,
-      "seed": 1024,
+      "seed": data.seed,
       "steps": data.steps,
       "style": data.style,
       "upsample": 1,
-      "width": 512
+      // "width": data.size,
+      // "height": data.size,
     })
   })
   const imageineData = await resp.json()
@@ -102,6 +103,7 @@ export async function action ({ request }: ActionArgs) {
   if (data.guidance_scale > 20 || data.guidance_scale < 1) data.guidance_scale = 10
   data.steps = parseInt(data.steps)
   if (data.steps > 100 || data.steps < 10) data.steps = 60
+  // if(data.size < 1 || data.size > 766) data.size = 512
 
   const images = await Promise.all([fetchFromBaai(data), fetchFromsd(data)])
   return json({ ok: 1, data: images.filter(it => !!it) })
@@ -139,7 +141,7 @@ export default function () {
             <label htmlFor="style">Negtive prompt</label>
             <input type="text" placeholder="(否定提示词)" name="negative_prompts" className="border-blue-500 border m-1 p-2 rounded active:border-blue-200 hover:border-blue-300 focus:border-blue-200 focus:outline-none w-full" />
           </div>
-          <div className="w-full hidden">
+          <div className="w-full">
             <label htmlFor="style">Style</label>
             <select id="style" onChange={event => setStyle(event.currentTarget.value)} defaultValue={'特写'}
               className="bg-gray-50 border border-blue-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-full">
@@ -148,9 +150,15 @@ export default function () {
               }
             </select>
           </div>
+          <input type="hidden" name="style" value={style} />
 
-          <input type="text" placeholder="guidance(制导比例，取值[1-20])" name="guidance_scale" className="hidden border-blue-500 border m-1 p-2 rounded active:border-blue-200 hover:border-blue-300 focus:border-blue-200 focus:outline-none w-1/4" />
-          <div className="w-full hidden">
+          
+          <div className="w-full">
+            <label htmlFor="gs">Guidance scale</label>
+            <input type="text" id="gs" defaultValue={7} placeholder="(制导比例，取值[1-20])" name="guidance_scale" className="border-blue-500 border m-1 p-2 rounded active:border-blue-200 hover:border-blue-300 focus:border-blue-200 focus:outline-none w-full" />
+          </div>
+          
+          <div className="w-full">
             <label htmlFor="sampler">Sampler</label>
             <select id="sampler" onChange={event => setSampler(event.currentTarget.value)} defaultValue={"euler_a_d"}
               className=" bg-gray-50 border border-blue-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-full">
@@ -162,16 +170,17 @@ export default function () {
               <option value="dpm">dpm</option>
             </select>
           </div>
-
           <input type="hidden" name="sampler" value={sampler} />
-          <div className="w-full hidden">
+
+          <div className="w-full">
             <label htmlFor="steps">Steps(Value 0-100)</label>
             <input type="text" id="steps" defaultValue={60} name="steps" className=" border-blue-500 border m-1 p-1 rounded active:border-blue-200 hover:border-blue-300 focus:border-blue-200 focus:outline-none w-full" />
-
           </div>
-
-
-          <input type="hidden" name="style" value={style} />
+            
+          <div className="w-full">
+            <label htmlFor="seed">Seed</label>
+            <input type="text" id="seed" defaultValue={512} placeholder="(生成图片尺寸，最大支持766x766)" name="size" className=" border-blue-500 border m-1 p-1 rounded active:border-blue-200 hover:border-blue-300 focus:border-blue-200 focus:outline-none w-full" />
+          </div>
 
           <button onClick={event => fetcher.submit({ _action: 'imagine' })} className="bg-blue-500  m-1 p-2 rounded hover:bg-blue-300 text-white px-3 font-bold w-full">Generate</button>
         </fetcher.Form>
@@ -187,7 +196,7 @@ export default function () {
           {
             ['submitting', 'loading'].includes(fetcher.state) &&
             <div className="flex flex-col justify-center items-center text-slate-500">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="animate-spin w-10 h-10">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="animate-spin w-10 h-10 ">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
               </svg>
               <div>Generating...</div>
